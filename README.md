@@ -1,13 +1,13 @@
-<div align="center">
-
- # Mousiki 🎵
+<div align="center">Mousiki 🎵
 
 <p align="center">
   <a href="https://opensource.org/" target="_blank">
-    <img src="https://i0.wp.com/opensource.org/wp-content/uploads/2023/03/cropped-OSI-horizontal-large.png?fit=640%2C229&quality=80&ssl=1" alt="OSI" height="52" /></a>
-&nbsp;
+    <img src="https://i0.wp.com/opensource.org/wp-content/uploads/2023/03/cropped-OSI-horizontal-large.png?fit=640%2C229&quality=80&ssl=1" alt="OSI" height="52" />
+  </a>
+  &nbsp;
   <a href="https://www.apache.org/" target="_blank">
-    <img src="https://www.apache.org/images/oakleaf.svg" alt="Apache" height="52" /></a>
+    <img src="https://www.apache.org/images/oakleaf.svg" alt="Apache" height="52" />
+  </a>
 </p>
 
 
@@ -19,16 +19,24 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/Basheer-io/mousiki/blob/main/LICENSE)
 [![Language](https://img.shields.io/badge/Language-C++17-orange.svg)](https://github.com/Basheer-io/mousiki)
 [![Platform](https://img.shields.io/badge/Platform-Windows_%7C_Linux_%7C_MacOS_%7C_Android-brightgreen.svg)](https://github.com/Basheer-io/mousiki)
+![Stars](https://img.shields.io/github/stars/itzender5820/mousiki?style=social)
+[![깃밥](https://www.gitbap.com/badge/itzender5820/mousiki.svg)](https://www.gitbap.com/r/itzender5820/mousiki)
+![Forks](https://img.shields.io/github/forks/itzender5820/mousiki?style=social)
 
-Mousiki is a terminal music player built from the ground up for people who prefer control, simplicity, and a keyboard. It's a fast, focused TUI (Terminal User Interface) without unnecessary interface layers — fully keyboard-driven and configurable, with spectrum visualizers, synced lyrics, and online streaming, all without leaving your terminal.
+Mousiki is a terminal music player built from the ground up for people who prefer control, simplicity, and a keyboard. It's a
+fast, focused TUI (Terminal User Interface) without unnecessary interface layers — fully keyboard-driven and configurable, wit
+h spectrum visualizers, synced lyrics, and online streaming, all without leaving your terminal.
 
 ``Personal preference is not a compromise—it's the design goal.``
- 
+
+[FOR WIN32 CLICK HERE](https://github.com/StSchwerdtfeger/Mousiki-Windows-Native-Port)
+
 ## Preview
 
 ![Mousiki Preview](./preview.gif)
 
 </div>
+
 ## ✨ Features
 
 - **Local Music Playback:** Instantly browse and play your local music files.
@@ -41,6 +49,7 @@ Mousiki is a terminal music player built from the ground up for people who prefe
 ## 🚀 Supported Platforms
 
 - **Native Support:** **Windows 10/11** (Windows Terminal & PowerShell), **Linux**, **macOS**, and **Android (Termux)**.
+- **Unverified Support:** *Windows WSL*. (Support for Windows is currently not verified because I don't have the hardware access needed to test and debug on that operating system. If you try it out and get it working, feel free to contribute!)
 
 ## 🛠️ Getting Started
 <div align="center">
@@ -112,6 +121,11 @@ bash setup.sh
 ```
 
 Start the player:
+If you're building manually, ensure you have `cmake`, a C++17 compiler, `ffmpeg`, `yt-dlp` (or let `setup.sh` fetch its standalone binary for you), and `libcurl` development headers (e.g. `libcurl4-openssl-dev` on Debian/Ubuntu) installed.
+
+### Running the App
+
+After a successful build, you can start the player with:
 ```bash
 ./build/mousiki
 ```
@@ -149,7 +163,7 @@ Mousiki stands on the shoulders of giants. A huge thank you to the developers be
 - **[miniaudio](https://github.com/mackron/miniaudio):** An incredible single-file audio playback and capture library.
 - **[kissfft](https://github.com/mborgerding/kissfft):** A wonderfully simple and lightweight real-input FFT library (powering the spectrum visualizer).
 - **[yt-dlp](https://github.com/yt-dlp/yt-dlp):** The backend magic for our online search and streaming capabilities.
-- **requests:** Python package used by `scripts/lrc.py` to fetch synced lyrics from Better Lyrics (primary) and [LRCLIB](https://lrclib.net) (fallback).
+- **libcurl:** used directly (no Python) to fetch synced lyrics from Better Lyrics (primary) and [LRCLIB](https://lrclib.net) (fallback). yt-dlp handles all YouTube search/streaming; setup.sh installs its standalone binary, so no Python is needed for that either.
 - **[FFmpeg](https://ffmpeg.org/):** The Swiss army knife of multimedia handling.
 
 <div align="center">

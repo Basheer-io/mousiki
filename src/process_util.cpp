@@ -3,6 +3,7 @@
 #include <array>
 #include <cerrno>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <sstream>
 
@@ -114,6 +115,7 @@ ProcResult run_capture(const std::string& cmd, bool merge_stderr) {
 #else
 
 #include <fcntl.h>
+#include <filesystem>
 #include <spawn.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -121,6 +123,8 @@ ProcResult run_capture(const std::string& cmd, bool merge_stderr) {
 extern char** environ;
 
 namespace muisc {
+
+namespace fs = std::filesystem;
 
 std::string shell_quote(const std::string& s) {
     std::string out = "'";
@@ -130,6 +134,28 @@ std::string shell_quote(const std::string& s) {
     }
     out += "'";
     return out;
+}
+
+std::string ytdlp_binary() {
+    // MOUSIKI_YTDLP_PATH is an explicit override for development/testing
+    // -- not part of the normal resolution chain, and not something
+    // setup.sh sets (same reasoning as MOUSIKI_PIPX_PATH before it:
+    // nothing in the install flow persists an env var through to the
+    // binary's later invocations, so this only ever matters if someone
+    // exports it themselves in the shell that launches mousiki).
+    if (const char* env = std::getenv("MOUSIKI_YTDLP_PATH")) {
+        std::error_code ec;
+        if (fs::exists(env, ec)) return shell_quote(env);
+    }
+
+    const char* home = std::getenv("HOME");
+    if (home) {
+        fs::path p = fs::path(home) / ".local" / "share" / "mousiki" / "bin" / "yt-dlp";
+        std::error_code ec;
+        if (fs::exists(p, ec)) return shell_quote(p.string());
+    }
+
+    return "yt-dlp"; // PATH fallback -- Termux's pkg-installed copy, or a manual install
 }
 
 // Deliberately NOT popen()/fork()+exec() — popen() forks, and fork()ing a
