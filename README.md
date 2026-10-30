@@ -116,6 +116,15 @@ Start the player:
 ./build/mousiki
 ```
 
+Release builds enable size-oriented compiler flags and link-time optimization
+when the toolchain supports them. To disable either optimization when
+debugging or comparing builds:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DMOUSIKI_SIZE_OPTIMIZED=OFF -DMOUSIKI_ENABLE_LTO=OFF
+```
+
 ## ⚙️ Configuration
 
 Your configuration file will be automatically generated at:
